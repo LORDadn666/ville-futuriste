@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAROLES INTERDITES - Ville Futuriste</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Electrolize', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .background-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: linear-gradient(45deg, #1a0033, #330066, #660033);
+            animation: backgroundShift 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(45deg, #1a0033, #330066, #660033); }
+            100% { background: linear-gradient(45deg, #330066, #660033, #1a0033); }
+        }
+
+        .city-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("futuristic_city.png");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            z-index: -2;
+            animation: cityGlow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes cityGlow {
+            0% { filter: brightness(0.8) contrast(1.2); }
+            100% { filter: brightness(1.2) contrast(1.5); }
+        }
+
+        .neon-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 150, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            animation: neonPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 0.8; }
+        }
+
+        .main-content {
+            text-align: center;
+            z-index: 10;
+            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff0080, #00ffff, #ff0080);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                background-position: 0% 50%;
+                filter: drop-shadow(0 0 20px rgba(255, 0, 128, 0.8));
+            }
+            100% { 
+                background-position: 100% 50%;
+                filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.8));
+            }
+        }
+
+        .platform-section {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ff0080;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 128, 0.5),
+                inset 0 0 30px rgba(0, 255, 255, 0.2);
+            animation: platformPulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes platformPulse {
+            0% { 
+                border-color: #ff0080;
+                box-shadow: 
+                    0 0 30px rgba(255, 0, 128, 0.5),
+                    inset 0 0 30px rgba(0, 255, 255, 0.2);
+            }
+            100% { 
+                border-color: #00ffff;
+                box-shadow: 
+                    0 0 50px rgba(0, 255, 255, 0.7),
+                    inset 0 0 50px rgba(255, 0, 128, 0.3);
+            }
+        }
+
+        .screen-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 0 40px rgba(255, 0, 128, 0.6);
+            animation: screenFlicker 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes screenFlicker {
+            0% { 
+                filter: brightness(1) contrast(1.2);
+                box-shadow: 0 0 40px rgba(255, 0, 128, 0.6);
+            }
+            100% { 
+                filter: brightness(1.2) contrast(1.5);
+                box-shadow: 0 0 60px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        .message {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            margin: 2rem 0;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            animation: messageGlow 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes messageGlow {
+            0% { 
+                color: #00ffff;
+                text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            }
+            100% { 
+                color: #ff0080;
+                text-shadow: 0 0 30px rgba(255, 0, 128, 0.9);
+            }
+        }
+
+        .cyborgs-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .cyborg-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 3px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            animation: cyborg-rotate 8s linear infinite;
+        }
+
+        @keyframes cyborg-rotate {
+            0% { 
+                transform: rotate(0deg);
+                border-color: #00ffff;
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            }
+            50% { 
+                border-color: #ff0080;
+                box-shadow: 0 0 40px rgba(255, 0, 128, 0.8);
+            }
+            100% { 
+                transform: rotate(360deg);
+                border-color: #00ffff;
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .floating-taxi {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff0080, #00ffff);
+            border-radius: 10px;
+            animation: floatTaxi 15s linear infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.8);
+        }
+
+        .floating-taxi:nth-child(1) {
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .floating-taxi:nth-child(2) {
+            top: 60%;
+            animation-delay: 5s;
+        }
+
+        .floating-taxi:nth-child(3) {
+            top: 40%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatTaxi {
+            0% { 
+                left: -100px;
+                transform: translateY(0px);
+            }
+            25% { 
+                transform: translateY(-20px);
+            }
+            50% { 
+                transform: translateY(10px);
+            }
+            75% { 
+                transform: translateY(-15px);
+            }
+            100% { 
+                left: calc(100% + 100px);
+                transform: translateY(0px);
+            }
+        }
+
+        .construction-text {
+            font-size: 1.4rem;
+            color: #ffff00;
+            text-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+            margin: 1rem 0;
+            animation: constructionBlink 2s ease-in-out infinite;
+        }
+
+        @keyframes constructionBlink {
+            0%, 50% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        .neon-text {
+            font-family: 'Electrolize', sans-serif;
+            color: #00ffff;
+            text-shadow: 
+                0 0 7px #00ffff,
+                0 0 10px #00ffff,
+                0 0 21px #00ffff,
+                0 0 42px #00ffff,
+                0 0 82px #00ffff,
+                0 0 92px #00ffff,
+                0 0 102px #00ffff,
+                0 0 151px #00ffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .message {
+                font-size: 1.4rem;
+            }
+            
+            .cyborg-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .platform-section {
+                padding: 1rem;
+                margin: 2rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem;
+                letter-spacing: 0.1em;
+            }
+            
+            .message {
+                font-size: 1.2rem;
+            }
+            
+            .cyborg-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-layer"></div>
+    <div class="city-background"></div>
+    <div class="neon-overlay"></div>
+    
+    <div class="floating-elements">
+        <div class="floating-taxi"></div>
+        <div class="floating-taxi"></div>
+        <div class="floating-taxi"></div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h1 class="title">PAROLES INTERDITES</h1>
+            
+            <div class="platform-section">
+                <div class="construction-text">🚧 CONSTRUCTION EN COURS 🚧</div>
+                <img src="high_tech_platform.png" alt="Plateforme High-Tech avec écran géant" class="screen-image">
+                <div class="message neon-text">
+                    Ici, vous trouverez bientôt votre émission<br>
+                    <strong>PAROLES INTERDITES</strong><br>
+                    en DIRECT
+                </div>
+                <div class="construction-text">Ouvriers du futur en action...</div>
+            </div>
+
+            <div class="cyborgs-section">
+                <img src="cyborgs_pedestrians.png" alt="Cyborgs et piétons futuristes" class="cyborg-image">
+                <div style="text-align: center;">
+                    <h2 class="neon-text" style="font-size: 2rem; margin-bottom: 1rem;">
+                        PAROLES INTERDITES
+                    </h2>
+                    <p class="neon-text" style="font-size: 1.3rem;">
+                        Cyborgs et humains cohabitent<br>
+                        dans cette métropole de la liberté d'expression
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation interactive pour les éléments
+        document.addEventListener("DOMContentLoaded", function() {
+            // Effet de parallaxe au scroll
+            window.addEventListener("scroll", function() {
+                const scrolled = window.pageYOffset;
+                const cityBg = document.querySelector(".city-background");
+                const neonOverlay = document.querySelector(".neon-overlay");
+                
+                cityBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+                neonOverlay.style.transform = `translateY(${scrolled * 0.3}px)`;
+            });
+
+            // Effet de clic sur les éléments
+            const platformSection = document.querySelector(".platform-section");
+            platformSection.addEventListener("click", function() {
+                this.style.animation = "none";
+                setTimeout(() => {
+                    this.style.animation = "platformPulse 4s ease-in-out infinite alternate";
+                }, 100);
+            });
+
+            // Animation des taxis volants au survol
+            const floatingTaxis = document.querySelectorAll(".floating-taxi");
+            floatingTaxis.forEach(taxi => {
+                taxi.addEventListener("mouseenter", function() {
+                    this.style.animationDuration = "5s";
+                });
+                taxi.addEventListener("mouseleave", function() {
+                    this.style.animationDuration = "15s";
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
